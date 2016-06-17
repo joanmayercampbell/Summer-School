@@ -48,12 +48,11 @@ namespace SummerSchool
         static int NumOfEnrolled()
         {
             int numberOfStudents = 0;
-            int i = 0;
-            for (i,i < Student.Length;i++)
+            for (int i = 0; i < Students.Length; i++) 
             {
-                if Students[i] == null
+                if(Students[i] != null)
                     {
-                    numberOfStudents +=;
+                    numberOfStudents++;
                 }
             }
             return numberOfStudents;
