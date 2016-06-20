@@ -15,8 +15,13 @@ namespace SummerSchool
         {
             Console.Clear();
 
+            PrintStudents();
+
             int menuChoice = 0;
 
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("");
             Console.WriteLine("SUMMER SCHOOL ENROLLMENT SYSTEM");
             Console.WriteLine("");
             Console.WriteLine("1 - Enroll a student");
@@ -42,6 +47,26 @@ namespace SummerSchool
 
         static void PrintStudents()
         {
+            Console.WriteLine("SUMMER SCHOOL ENROLLMENT SYSTEM");
+
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+            Console.WriteLine("Current Enrollment Rooster");
+            Console.WriteLine("--------------------------");
+
+            // if there are no students
+            if (NumOfEnrolled() ==0)
+            {
+                Console.WriteLine("* no students enrolled! *");
+                Console.WriteLine("-------------------------");
+                return;
+            }
+
+            for (int i=0;i < NumOfEnrolled();i++)
+            {
+                Console.WriteLine("{0}  {1}", i, Students[i]);
+            }
             return;
         }
 
@@ -90,7 +115,7 @@ namespace SummerSchool
             }
             
            
-            Console.ReadKey();
+            //Console.ReadKey();
 
         }
     }
