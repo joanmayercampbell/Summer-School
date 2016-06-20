@@ -28,7 +28,9 @@ namespace SummerSchool
             if (NumOfEnrolled() < 15)
             {
                 Console.WriteLine("1 - Enroll a student");
+                
             }
+            
             
             if (NumOfEnrolled() > 0)
             {
@@ -49,15 +51,17 @@ namespace SummerSchool
 
             string studentsName = null;
 
-            //prompt for students name
-            Console.Clear();
-            Console.WriteLine("STUDENT ENROLLMENT");
-            Console.WriteLine("");
-            Console.WriteLine("");
+
 
             // display current list of students
+            Console.Clear();
             PrintStudents();
 
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            //prompt for students name
+            Console.WriteLine("STUDENT ENROLLMENT");
             Console.WriteLine("");
             Console.WriteLine("");
 
@@ -83,11 +87,15 @@ namespace SummerSchool
                 newFee = 100;
             }
 
-            if (studentsName.Contains("Tom") || studentsName.Contains("Riddle") || studentsName.Contains("Voldemort"))
+            string tempName = studentsName.ToLower();
+
+            if (studentsName.Contains("tom") || studentsName.Contains("riddle") || studentsName.Contains("voldemort"))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("RED ALERT!!! HE WHO MUST NOT BE NAMED.");
                 Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine(" ");
+                Console.WriteLine("Press any key to continue ");
                 Console.ReadKey();
             }
 
@@ -111,6 +119,10 @@ namespace SummerSchool
             }
 
             Fees[newStudent] = newFee;
+
+            Console.WriteLine("{0} is enrolled and owes {1} ", Students[newStudent], Fees[newStudent]);
+            Console.WriteLine("Press any key to continue ");
+            Console.ReadKey();
                         
             return;
         }
@@ -166,6 +178,8 @@ namespace SummerSchool
                 Fees[i] = tempFees[i];
             }
 
+            Console.WriteLine(" ");
+            Console.WriteLine("Press any key to continue ");
             Console.ReadKey();
                 
 
@@ -237,12 +251,35 @@ namespace SummerSchool
 
                 if (menuChoice == 1)
                 {
-                    EnrollStudent();
+                    if (NumOfEnrolled() < 15)
+                    {
+                        EnrollStudent();
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Maximum number of students !");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        continue;
+                    }
+
+                    
                 }
 
                 if (menuChoice == 2)
                 {
-                    UnenrollStudent();
+                    if (NumOfEnrolled() > 0)
+                    {
+                        UnenrollStudent();
+                    }
+                    else
+                    {
+                        Console.WriteLine("There are no students to unenroll !");
+                        Console.WriteLine("Press any key to continue");
+                        Console.ReadKey();
+                        continue;
+                    }
                 }
 
                 if (menuChoice == 3)
@@ -258,10 +295,18 @@ namespace SummerSchool
                 if (menuChoice > 5 || menuChoice < 1)
                 {
                     Console.WriteLine("Please enter a number from 1 - 4 ");
+                    menuChoice = 0;
+                    Console.WriteLine("Press any key to continue");
                     Console.ReadKey();
                     continue;
                 }
-                    
+
+                if (menuChoice == -1)
+                {
+                    Console.WriteLine("Press any key to continue");
+                    Console.ReadKey();
+                    continue;
+                }                    
             }
             
            
