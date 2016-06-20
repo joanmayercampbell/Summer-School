@@ -88,20 +88,27 @@ namespace SummerSchool
             // take out students name from the enrollment list
             Students[studentsNumber] = null;
 
-            // pack the array
-            for (int i = 0;i < NumOfEnrolled();i++)     
+            Console.WriteLine("Number of enrolled: {0}", NumOfEnrolled());
+            Console.ReadKey();
+
+            for (int i = 0;i < NumOfEnrolled();i++)
             {
-                if (Students[i] == null)
+                Console.WriteLine("Student {0}, {1}", i, Students[i]);
+            }
+            Console.ReadKey();
+
+            int j = 0;
+
+            // pack the array
+            for (int i = 0;i <= NumOfEnrolled();i++)     
+            {
+                if (Students[i] != null)
                 {
-                    for (int j = i+1;j < NumOfEnrolled();j++)
-                    {
-                        tempStudents[j - 1] = Students[j];
-                    }
+                    tempStudents[j] = Students[i];
+                    j++;
                 }
-                else
-                {
-                    tempStudents[i] = Students[i];
-                }
+                    
+                
             }
 
             // copy all of the tempStudent array into the Students array
@@ -142,7 +149,8 @@ namespace SummerSchool
         }
 
         static int NumOfEnrolled()
-        {
+        { 
+       
             int numberOfStudents = 0;
             for (int i = 0; i < Students.Length; i++) 
             {
@@ -180,6 +188,13 @@ namespace SummerSchool
 
                 if (menuChoice == 4)
                 {
+                    continue;
+                }
+
+                if (menuChoice > 5 || menuChoice < 1)
+                {
+                    Console.WriteLine("Please enter a number from 1 - 4 ");
+                    Console.ReadKey();
                     continue;
                 }
                     
