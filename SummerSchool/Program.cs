@@ -22,8 +22,7 @@ namespace SummerSchool
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
-            Console.WriteLine("SUMMER SCHOOL ENROLLMENT SYSTEM");
-            Console.WriteLine("");
+          
             Console.WriteLine("1 - Enroll a student");
             Console.WriteLine("2 - Unenroll a student");
             Console.WriteLine("3 - Print list of enrolled students");
@@ -37,11 +36,83 @@ namespace SummerSchool
 
         static void EnrollStudent()
         {
+
+            string studentsName = null;
+
+            //prompt for students name
+            Console.Clear();
+            Console.WriteLine("STUDENT ENROLLMENT");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            // display current list of students
+            PrintStudents();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+
+            Console.WriteLine("Please enter new student's name: ");
+            studentsName = Console.ReadLine();
+
+            //enter the new students name in the last available position
+            Students[NumOfEnrolled()] = studentsName;
+
+            
             return;
         }
 
         static void UnenrollStudent()
         {
+            int studentsNumber = 0;
+            string[] tempStudents = new string[15];
+
+            //prompt for students name
+            Console.Clear();
+            Console.WriteLine("STUDENT UNENROLLMENT");
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            // display current list of students
+            PrintStudents();
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Enter the student's number you want to unenroll: ");
+            studentsNumber = Convert.ToInt32(Console.ReadLine());             
+
+            // write out confirmation
+            Console.WriteLine("Student : {0}  has been unenrolled. ", Students[studentsNumber]);
+
+            // take out students name from the enrollment list
+            Students[studentsNumber] = null;
+
+            // pack the array
+            for (int i = 0;i < NumOfEnrolled();i++)     
+            {
+                if (Students[i] == null)
+                {
+                    for (int j = i+1;j < NumOfEnrolled();j++)
+                    {
+                        tempStudents[j - 1] = Students[j];
+                    }
+                }
+                else
+                {
+                    tempStudents[i] = Students[i];
+                }
+            }
+
+            // copy all of the tempStudent array into the Students array
+            for (int i=0;i< NumOfEnrolled();i++)
+            {
+                Students[i] = tempStudents[i];
+            }
+
+            Console.ReadKey();
+                
+
             return;
         }
 
