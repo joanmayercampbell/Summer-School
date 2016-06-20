@@ -8,8 +8,10 @@ namespace SummerSchool
 {
     class Program
     {
-        static string[] Students = new string[15];
-        static int[] Fees = new int[15];
+        static int MaxStudents = 15;
+        static string[] Students = new string[MaxStudents];
+        static int[] Fees = new int[MaxStudents];
+        
 
         static int DisplayMenuGetInput()
         {
@@ -23,8 +25,16 @@ namespace SummerSchool
             Console.WriteLine("");
             Console.WriteLine("");
           
-            Console.WriteLine("1 - Enroll a student");
-            Console.WriteLine("2 - Unenroll a student");
+            if (NumOfEnrolled() < 15)
+            {
+                Console.WriteLine("1 - Enroll a student");
+            }
+            
+            if (NumOfEnrolled() > 0)
+            {
+                Console.WriteLine("2 - Unenroll a student");
+            }
+            
             Console.WriteLine("3 - Print list of enrolled students");
             Console.WriteLine("4 - Exit");
             Console.WriteLine("");
@@ -55,17 +65,61 @@ namespace SummerSchool
             Console.WriteLine("Please enter new student's name: ");
             studentsName = Console.ReadLine();
 
+            if (studentsName.Contains("Malfoy"))
+            {
+                Console.WriteLine("Can not enroll {0} ", studentsName);
+                return;
+            }
+
             //enter the new students name in the last available position
-            Students[NumOfEnrolled()] = studentsName;
+            int newStudent = NumOfEnrolled();
+            int newFee = 200;
+
+            Students[newStudent] = studentsName;
+
+            // check for special fee conditions
+            if (studentsName.Contains("Potter"))
+            {
+                newFee = 100;
+            }
+
+            if (studentsName.Contains("Tom") || studentsName.Contains("Riddle") || studentsName.Contains("Voldemort"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("RED ALERT!!! HE WHO MUST NOT BE NAMED.");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.ReadKey();
+            }
 
             
+
+            var firstLastName = studentsName.Split(' ');
+            string firstName = firstLastName[0];
+            string lastName = firstLastName[1];
+            if (firstName.First() == lastName.First())
+            {
+                newFee = 180;
+            }
+
+            if (studentsName.Contains("Longbottom"))
+            {
+                if (NumOfEnrolled() < 10)
+                {
+                    newFee = 0;
+                }
+
+            }
+
+            Fees[newStudent] = newFee;
+                        
             return;
         }
 
         static void UnenrollStudent()
         {
             int studentsNumber = 0;
-            string[] tempStudents = new string[15];
+            string[] tempStudents = new string[MaxStudents];
+            int[] tempFees = new int[MaxStudents];
 
             //prompt for students name
             Console.Clear();
@@ -80,7 +134,8 @@ namespace SummerSchool
             Console.WriteLine("");
 
             Console.WriteLine("Enter the student's number you want to unenroll: ");
-            studentsNumber = Convert.ToInt32(Console.ReadLine());             
+            studentsNumber = Convert.ToInt32(Console.ReadLine());
+            studentsNumber--;  
 
             // write out confirmation
             Console.WriteLine("Student : {0}  has been unenrolled. ", Students[studentsNumber]);
@@ -88,15 +143,7 @@ namespace SummerSchool
             // take out students name from the enrollment list
             Students[studentsNumber] = null;
 
-            Console.WriteLine("Number of enrolled: {0}", NumOfEnrolled());
-            Console.ReadKey();
-
-            for (int i = 0;i < NumOfEnrolled();i++)
-            {
-                Console.WriteLine("Student {0}, {1}", i, Students[i]);
-            }
-            Console.ReadKey();
-
+            //variable to manage the tempStudent array           
             int j = 0;
 
             // pack the array
@@ -105,6 +152,7 @@ namespace SummerSchool
                 if (Students[i] != null)
                 {
                     tempStudents[j] = Students[i];
+                    tempFees[j] = Fees[i];
                     j++;
                 }
                     
@@ -115,6 +163,7 @@ namespace SummerSchool
             for (int i=0;i< NumOfEnrolled();i++)
             {
                 Students[i] = tempStudents[i];
+                Fees[i] = tempFees[i];
             }
 
             Console.ReadKey();
@@ -141,10 +190,25 @@ namespace SummerSchool
                 return;
             }
 
+            int sumOfFees = 0;
+
             for (int i=0;i < NumOfEnrolled();i++)
             {
-                Console.WriteLine("{0}  {1}", i, Students[i]);
+                Console.Write("{0}  {1}   ", i+1, Students[i]);
+                if (Fees[i] != 200)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Console.WriteLine("{0}", Fees[i]);
+                Console.ForegroundColor = ConsoleColor.White;
+                sumOfFees = sumOfFees + Fees[i];
+
             }
+
+            Console.WriteLine("");
+            Console.WriteLine("");
+
+            Console.WriteLine("Total fees due: {0}", sumOfFees);
             return;
         }
 
