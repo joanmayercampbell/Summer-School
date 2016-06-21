@@ -152,6 +152,8 @@ namespace SummerSchool
             // display current list of students
             PrintStudents();
 
+            Console.WriteLine("");
+            Console.WriteLine("");
 
             Console.WriteLine("STUDENT UNENROLLMENT");
             Console.WriteLine("");
@@ -223,12 +225,12 @@ namespace SummerSchool
             // print out the fees in red if not $200
             for (int i=0;i < NumOfEnrolled();i++)
             {
-                Console.Write("{0}  {1}   ", i+1, Students[i]);
+                Console.Write("{0}. \t {1}   ", i+1, Students[i]);
                 if (Fees[i] != 200)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                 }
-                Console.WriteLine("{0}", Fees[i]);
+                Console.WriteLine("\t{0}", Fees[i]);
                 Console.ForegroundColor = ConsoleColor.White;
                 sumOfFees = sumOfFees + Fees[i];
 
