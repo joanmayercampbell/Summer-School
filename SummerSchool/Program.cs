@@ -89,9 +89,21 @@ namespace SummerSchool
 
             Students[newStudent] = studentsName;
 
+            // first and last name start with same letter
+            var firstLastName = studentsName.Split(' ');
+            string firstName = firstLastName[0];
+            string lastName = null;
+
+            // if there is a last name
+            if (firstLastName.Length > 1)
+            {
+                lastName = firstLastName[firstLastName.Length-1];
+            }
+
+
             // special case Potter
             // check for special fee conditions
-            if (studentsName.Contains("Potter"))
+            if (lastName.Contains("Potter"))
             {
                 newFee = newFee / 2;
             }
@@ -110,10 +122,9 @@ namespace SummerSchool
             }
 
             
-            // first and last name start with same letter
-            var firstLastName = studentsName.Split(' ');
-            string firstName = firstLastName[0];
-            string lastName = firstLastName[1];
+           
+           
+            
             if (firstName.First() == lastName.First())
             {
                 
