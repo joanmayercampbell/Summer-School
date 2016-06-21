@@ -8,15 +8,19 @@ namespace SummerSchool
 {
     class Program
     {
+
+        // Maximum number of students
         static int MaxStudents = 15;
+
+        // arrays to hold students and fees
         static string[] Students = new string[MaxStudents];
         static int[] Fees = new int[MaxStudents];
         
-
+        // Displays Menu and gets the user input returns integer
         static int DisplayMenuGetInput()
         {
+            // clear the screen and print the list of students
             Console.Clear();
-
             PrintStudents();
 
             int menuChoice = 0;
@@ -24,14 +28,16 @@ namespace SummerSchool
             Console.WriteLine("");
             Console.WriteLine("");
             Console.WriteLine("");
-          
-            if (NumOfEnrolled() < 15)
+
+
+          // if there is still room show the enroll student option
+            if (NumOfEnrolled() < MaxStudents)
             {
                 Console.WriteLine("1 - Enroll a student");
                 
             }
             
-            
+            // if there are no enrolled students don't show unenroll option
             if (NumOfEnrolled() > 0)
             {
                 Console.WriteLine("2 - Unenroll a student");
@@ -46,6 +52,7 @@ namespace SummerSchool
             return menuChoice;
         }
 
+        // method to enroll student
         static void EnrollStudent()
         {
 
@@ -69,6 +76,7 @@ namespace SummerSchool
             Console.WriteLine("Please enter new student's name: ");
             studentsName = Console.ReadLine();
 
+            // special case Malfoy
             if (studentsName.Contains("Malfoy"))
             {
                 Console.WriteLine("Can not enroll {0} ", studentsName);
@@ -81,14 +89,16 @@ namespace SummerSchool
 
             Students[newStudent] = studentsName;
 
+            // special case Potter
             // check for special fee conditions
             if (studentsName.Contains("Potter"))
             {
-                newFee = 100;
+                newFee = newFee / 2;
             }
 
             string tempName = studentsName.ToLower();
 
+            // special cases
             if (studentsName.Contains("tom") || studentsName.Contains("riddle") || studentsName.Contains("voldemort"))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -100,7 +110,7 @@ namespace SummerSchool
             }
 
             
-
+            // first and last name start with same letter
             var firstLastName = studentsName.Split(' ');
             string firstName = firstLastName[0];
             string lastName = firstLastName[1];
@@ -109,6 +119,7 @@ namespace SummerSchool
                 newFee = 180;
             }
 
+            // special case Longbottom
             if (studentsName.Contains("Longbottom"))
             {
                 if (NumOfEnrolled() < 10)
@@ -127,24 +138,24 @@ namespace SummerSchool
             return;
         }
 
+        // method to unenroll student
         static void UnenrollStudent()
         {
             int studentsNumber = 0;
             string[] tempStudents = new string[MaxStudents];
             int[] tempFees = new int[MaxStudents];
 
-            //prompt for students name
             Console.Clear();
-            Console.WriteLine("STUDENT UNENROLLMENT");
-            Console.WriteLine("");
-            Console.WriteLine("");
 
             // display current list of students
             PrintStudents();
 
+
+            Console.WriteLine("STUDENT UNENROLLMENT");
             Console.WriteLine("");
             Console.WriteLine("");
 
+            // prompt for the student's number
             Console.WriteLine("Enter the student's number you want to unenroll: ");
             studentsNumber = Convert.ToInt32(Console.ReadLine());
             studentsNumber--;  
@@ -158,7 +169,7 @@ namespace SummerSchool
             //variable to manage the tempStudent array           
             int j = 0;
 
-            // pack the array
+            // pack the array getting rid of nulls
             for (int i = 0;i <= NumOfEnrolled();i++)     
             {
                 if (Students[i] != null)
@@ -186,6 +197,7 @@ namespace SummerSchool
             return;
         }
 
+        // display enrolled students
         static void PrintStudents()
         {
             Console.WriteLine("SUMMER SCHOOL ENROLLMENT SYSTEM");
@@ -206,6 +218,7 @@ namespace SummerSchool
 
             int sumOfFees = 0;
 
+            // print out the fees in red if not $200
             for (int i=0;i < NumOfEnrolled();i++)
             {
                 Console.Write("{0}  {1}   ", i+1, Students[i]);
@@ -222,10 +235,12 @@ namespace SummerSchool
             Console.WriteLine("");
             Console.WriteLine("");
 
+            // print total fees due
             Console.WriteLine("Total fees due: {0}", sumOfFees);
             return;
         }
 
+        // method to return number of enrolled students
         static int NumOfEnrolled()
         { 
        
@@ -249,11 +264,13 @@ namespace SummerSchool
             {
                 menuChoice = DisplayMenuGetInput();
 
+                // enroll student option unless max number of students has been reached
                 if (menuChoice == 1)
                 {
-                    if (NumOfEnrolled() < 15)
+                    if (NumOfEnrolled() < MaxStudents)
                     {
                         EnrollStudent();
+                        continue;
 
                     }
                     else
@@ -267,11 +284,13 @@ namespace SummerSchool
                     
                 }
 
+                // unenroll students unless there are none enrolled
                 if (menuChoice == 2)
                 {
                     if (NumOfEnrolled() > 0)
                     {
                         UnenrollStudent();
+                        continue;
                     }
                     else
                     {
@@ -282,16 +301,21 @@ namespace SummerSchool
                     }
                 }
 
+                // print  list of students
                 if (menuChoice == 3)
                 {
-                    PrintStudents(); 
+                    PrintStudents();
+                    continue;
                 }
 
+
+                // exit
                 if (menuChoice == 4)
                 {
                     continue;
                 }
 
+                // wrong choice if not 1-4
                 if (menuChoice > 5 || menuChoice < 1)
                 {
                     Console.WriteLine("Please enter a number from 1 - 4 ");
