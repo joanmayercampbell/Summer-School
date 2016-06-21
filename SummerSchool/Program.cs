@@ -14,7 +14,7 @@ namespace SummerSchool
 
         // arrays to hold students and fees
         static string[] Students = new string[MaxStudents];
-        static int[] Fees = new int[MaxStudents];
+        static double[] Fees = new double[MaxStudents];
         
         // Displays Menu and gets the user input returns integer
         static int DisplayMenuGetInput()
@@ -85,7 +85,7 @@ namespace SummerSchool
 
             //enter the new students name in the last available position
             int newStudent = NumOfEnrolled();
-            int newFee = 200;
+            double newFee = 200;
 
             Students[newStudent] = studentsName;
 
@@ -116,7 +116,9 @@ namespace SummerSchool
             string lastName = firstLastName[1];
             if (firstName.First() == lastName.First())
             {
-                newFee = 180;
+                
+                newFee = newFee * .90;
+                
             }
 
             // special case Longbottom
@@ -143,7 +145,7 @@ namespace SummerSchool
         {
             int studentsNumber = 0;
             string[] tempStudents = new string[MaxStudents];
-            int[] tempFees = new int[MaxStudents];
+            double[] tempFees = new double[MaxStudents];
 
             Console.Clear();
 
@@ -216,7 +218,7 @@ namespace SummerSchool
                 return;
             }
 
-            int sumOfFees = 0;
+            double sumOfFees = 0;
 
             // print out the fees in red if not $200
             for (int i=0;i < NumOfEnrolled();i++)
